@@ -1,5 +1,5 @@
 const campominado = document.getElementById("campominado");
-const minas = [0, 9, 12, 20, 25, 31, 35, 45, 48, 52, 59, 61];
+const minas = [0, 5, 9, 12, 17, 20, 26, 31, 34, 38, 42, 45, 49, 52, 59, 61];
 const grid = 8*8;
 
 function criarGrid() {
@@ -19,11 +19,12 @@ function criarGrid() {
 
 function foo(i) {
     const t = document.getElementById(i)
+
     if(minas.includes(i)) {
         t.setAttribute("class", "mina");
         t.textContent = "💣";
         t.style.backgroundColor = "red";
-        setTimeout(reiniciarJogo, 2000);
+        mostrarGameOver();
     } else {
         t.setAttribute("class", "seguro");
         t.textContent = ""
@@ -33,9 +34,20 @@ function foo(i) {
     t.setAttribute("class", "revelado")
 }
 
+function mostrarGameOver() {
+    const divGameOver = document.createElement("div");
+    divGameOver.setAttribute("class", "divGameOver");
+    divGameOver.textContent = "Game Over";
+    
+    document.body.appendChild(divGameOver);
+
+    setTimeout(reiniciarJogo, 2000);
+}
+
 function reiniciarJogo() {
     campominado.innerHTML = "";
     criarGrid();
+    document.querySelector('.divGameOver')?.remove();
 }
 
 criarGrid();
