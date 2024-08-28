@@ -1,6 +1,6 @@
 const campominado = document.getElementById("campominado");
 // const minas = [0, 5, 9, 12, 17, 20, 26, 31, 34, 38, 42, 45, 49, 52, 59, 61];
-const totalMinas = 15;
+const totalMinas = 10;
 const grid = 8*8;
 
 function criarGrid() {
