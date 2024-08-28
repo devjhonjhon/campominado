@@ -45,7 +45,7 @@ function foo(i, minas) {
     } else {
         const numMinas = contarMinasAoRedor(i, minas);
         t.setAttribute("class", "seguro");
-        t.textContent = numMinas > 0 ? numMinas : "0";
+        t.textContent = numMinas > 0 ? numMinas : "";
         t.style.backgroundColor = "beige";
     }
 
