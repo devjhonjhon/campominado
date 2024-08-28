@@ -2,7 +2,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 1000px;
+    height: 100vh;
     margin: 0;
     background-color: #fff;
 }
@@ -26,13 +26,18 @@ body {
     cursor: pointer;
 }
 
-.t.mina {
+.mina {
     background-color: red;
-    color: red;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-.t.seguro {
+.seguro {
     background-color: beige;
+}
+.revelado {
+    cursor: default;
 }
 
 .divGameOver {
