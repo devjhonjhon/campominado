@@ -1,15 +1,18 @@
 const campominado = document.getElementById("campominado");
-const minas = [0, 5, 9, 12, 17, 20, 26, 31, 34, 38, 42, 45, 49, 52, 59, 61];
+// const minas = [0, 5, 9, 12, 17, 20, 26, 31, 34, 38, 42, 45, 49, 52, 59, 61];
+const totalMinas = 15;
 const grid = 8*8;
 
 function criarGrid() {
+    const minas = gerarMinasAleatorias(totalMinas);
+
     for(let i=0; i < grid; i++) {
         const t = document.createElement("div");
         t.setAttribute("class", "t");
         t.setAttribute("id", i)
         
         t.addEventListener('click', function() {
-            foo(i);
+            foo(i, minas);
         }, false);
         
         campominado.appendChild(t);
@@ -17,7 +20,21 @@ function criarGrid() {
 
 }
 
-function foo(i) {
+function gerarMinasAleatorias(total) {
+    const minas = [];
+    let pos;
+
+    for (let count = 0; count < total; count++) {
+        do {
+            pos = Math.floor(Math.random() * grid);
+        } while (minas.includes(pos));
+        minas.push(pos);
+    }
+
+    return minas;
+}
+
+function foo(i, minas) {
     const t = document.getElementById(i)
 
     if(minas.includes(i)) {
@@ -26,7 +43,7 @@ function foo(i) {
         t.style.backgroundColor = "red";
         mostrarGameOver();
     } else {
-        const numMinas = contarMinasAoRedor(i);
+        const numMinas = contarMinasAoRedor(i, minas);
         t.setAttribute("class", "seguro");
         t.textContent = numMinas > 0 ? numMinas : "0";
         t.style.backgroundColor = "beige";
@@ -45,17 +62,17 @@ function mostrarGameOver() {
     setTimeout(reiniciarJogo, 2000);
 }
 
-function contarMinasAoRedor(i) {
+function contarMinasAoRedor(i, minas) {
     let contador = 0;
 
-    if (minas.includes(i - 1)) contador++;
-    if (minas.includes(i + 1)) contador++;
-    if (minas.includes(i - 8)) contador++;
-    if (minas.includes(i + 8)) contador++;
-    if (minas.includes(i - 9)) contador++;
-    if (minas.includes(i - 7)) contador++;
-    if (minas.includes(i + 7)) contador++;
-    if (minas.includes(i + 9)) contador++;
+    if (i % 8 !== 0 && minas.includes(i - 1)) contador++;
+    if (i % 8 !== 7 && minas.includes(i + 1)) contador++;
+    if (i >= 8 && minas.includes(i - 8)) contador++;
+    if (i < 56 && minas.includes(i + 8)) contador++;
+    if (i % 8 !== 0 && i >= 8 && minas.includes(i - 9)) contador++;
+    if (i % 8 !== 7 && i >= 8 && minas.includes(i - 7)) contador++;
+    if (i % 8 !== 0 && i < 56 && minas.includes(i + 7)) contador++;
+    if (i % 8 !== 7 && i < 56 && minas.includes(i + 9)) contador++;
 
     return contador;
 }
