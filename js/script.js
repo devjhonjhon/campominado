@@ -26,8 +26,9 @@ function foo(i) {
         t.style.backgroundColor = "red";
         mostrarGameOver();
     } else {
+        const numMinas = contarMinasAoRedor(i);
         t.setAttribute("class", "seguro");
-        t.textContent = ""
+        t.textContent = numMinas > 0 ? numMinas : "0";
         t.style.backgroundColor = "beige";
     }
 
@@ -42,6 +43,21 @@ function mostrarGameOver() {
     document.body.appendChild(divGameOver);
 
     setTimeout(reiniciarJogo, 2000);
+}
+
+function contarMinasAoRedor(i) {
+    let contador = 0;
+
+    if (minas.includes(i - 1)) contador++;
+    if (minas.includes(i + 1)) contador++;
+    if (minas.includes(i - 8)) contador++;
+    if (minas.includes(i + 8)) contador++;
+    if (minas.includes(i - 9)) contador++;
+    if (minas.includes(i - 7)) contador++;
+    if (minas.includes(i + 7)) contador++;
+    if (minas.includes(i + 9)) contador++;
+
+    return contador;
 }
 
 function reiniciarJogo() {
